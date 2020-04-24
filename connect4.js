@@ -9,6 +9,7 @@ let WIDTH = 7;
 let HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+let counter = 0;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -42,20 +43,22 @@ function makeHtmlBoard() {
   for (let x = 0; x < WIDTH; x++) {
     let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
+    headCell.setAttribute("class", "select-box");
+    headCell.addEventListener("mouseover", () => {
+      if (event.target.className === "select-box") {
+        if (currPlayer === 2) {
+          headCell.style.backgroundColor = "blue";
+        } else {
+          headCell.style.backgroundColor = "red";
+        }
+      }
+    });
     top.append(headCell);
-  }
-  htmlBoard.append(top);
-  const colorByTurn = Array.from(
-    document.getElementById("column-top").children
-  );
-
-  for (let i = 0; i < colorByTurn.length; i++) {
-    colorByTurn[i].addEventListener("onmouseover", () => {
-      currPlayer === 2
-        ? (colorByTurn[i].style.backgroundColor = "red")
-        : (colorByTurn[i].style.backgroundColor = "blue");
+    headCell.addEventListener("mouseout", () => {
+      headCell.style.backgroundColor = "skyblue";
     });
   }
+  htmlBoard.append(top);
 
   // TODO: add comment for this code
   //Creates all of the spaces in on the board, populating columns in each row,
@@ -104,16 +107,27 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
-  setTimeout(() => alert(msg), 250);
   const removeClick = document.getElementById("column-top");
   removeClick.removeEventListener("click", handleClick);
-  const resetGame = document.createElement("button");
-  resetGame.innerText = "Reset Game!";
-  resetGame.addEventListener("click", () => {
-    window.location.reload();
-  });
-  const connect4logo = document.getElementById("connect4");
-  connect4logo.parentNode.insertBefore(resetGame, connect4logo.nextSibling);
+
+  let removeHover = Array.from(document.querySelectorAll(".select-box"));
+  for (let i = 0; i < removeHover.length; i++) {
+    removeHover[i].addEventListener("mouseover", function () {
+      if (event.target.className === "select-box") {
+        removeHover[i].style.backgroundColor = "skyblue";
+      }
+    });
+  }
+  setTimeout(() => {
+    alert(msg);
+    const resetGame = document.createElement("button");
+    resetGame.innerText = "Reset Game!";
+    resetGame.addEventListener("click", () => {
+      window.location.reload();
+    });
+    const connect4logo = document.getElementById("connect4");
+    connect4logo.parentNode.insertBefore(resetGame, connect4logo.nextSibling);
+  }, 1100);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -145,10 +159,11 @@ function handleClick(evt) {
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
   board.every((val, index) => {
-    if (val[index] === null) {
-      return;
-    } else {
-      endGame();
+    if (currPlayer) {
+      counter++;
+      if (counter === WIDTH * HEIGHT) {
+        endGame("It's a Tie!");
+      }
     }
   });
 

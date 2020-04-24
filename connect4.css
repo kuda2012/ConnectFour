@@ -7,7 +7,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: skyblue;
 }
@@ -43,11 +43,20 @@ tr td {
 
 .piece {
   /* TODO: make into circles */
-
+  position: relative;
   margin: 0 0px 0 0;
   width: 100%;
   height: 100%;
   border-radius: 100px;
+  animation: slideDown 1s;
+}
+@keyframes slideDown {
+  0% {
+    transform: translate(0, -350px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
@@ -63,8 +72,4 @@ tr td {
 
 #column-top td {
   border: dashed 1px lightgray;
-}
-
-#column-top td:hover {
-  background-color: gold;
 }
