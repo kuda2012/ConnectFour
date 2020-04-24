@@ -64,3 +64,7 @@ tr td {
 #column-top td {
   border: dashed 1px lightgray;
 }
+
+#column-top td:hover {
+  background-color: gold;
+}
