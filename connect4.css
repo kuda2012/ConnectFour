@@ -69,7 +69,3 @@ tr td {
 }
 
 /* column-top is table row of clickable areas for each column */
-
-#column-top td {
-  border: dashed 1px lightgray;
-}
