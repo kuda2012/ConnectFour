@@ -38,8 +38,9 @@ function makeHtmlBoard() {
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
-  // Sets an ID that stylizes the created table data spots, appends the td, to the top row
-  //created above and then appends the top row to  the board.
+  // Sets an ID that stylizes the  table data spots for the clickable row , appends the td, to the clickable row
+  //created above and then appends clickable row to the top of the board.
+  //Depending on which players turn it is, a column of the top clickable row will change to the given players color when hovered over.
   for (let x = 0; x < WIDTH; x++) {
     let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
@@ -61,7 +62,7 @@ function makeHtmlBoard() {
   htmlBoard.append(top);
 
   // TODO: add comment for this code
-  //Creates all of the spaces in on the board, populating columns in each row,
+  //Creates all of the spaces in on the board, creating columns for each row,
   //then moving to the next row to repeat the same process. When done, columnizing a
   // a given row, it appends the row to the board
   for (let y = 0; y < HEIGHT; y++) {
@@ -76,7 +77,7 @@ function makeHtmlBoard() {
   }
 }
 
-/** findSpotForCol: given column x, return top empty y (null if filled) */
+/** findSpotForCol: Depending on the column clicked on, the "y" spot of the lowest row that does not have a piece in that column is returned*/
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
@@ -95,6 +96,7 @@ function placeInTable(y, x) {
 
   const divPiece = document.createElement("div");
   const givenCell = document.getElementById(`${y}-${x}`);
+  // a class is added based on the row the piece will be in so that CSS animation slide down animaitions can be applied per distance from the top row
   if (y === 5) {
     divPiece.classList.add("row6");
   } else if (y === 4) {
@@ -111,7 +113,7 @@ function placeInTable(y, x) {
   }
 
   givenCell.append(divPiece);
-  if (currPlayer % 2 != 0) {
+  if (currPlayer === 1) {
     divPiece.classList.toggle("player1Red");
   } else {
     divPiece.classList.toggle("player2Blue");
@@ -123,9 +125,10 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  //Remove click listener from top row
   const removeClick = document.getElementById("column-top");
   removeClick.removeEventListener("click", handleClick);
-
+  //Remove color changes of top row
   let removeHover = Array.from(document.querySelectorAll(".select-box"));
   for (let i = 0; i < removeHover.length; i++) {
     removeHover[i].addEventListener("mouseover", function () {
@@ -134,6 +137,7 @@ function endGame(msg) {
       }
     });
   }
+  //Alert which player won and provide option to reset the game
   setTimeout(() => {
     alert(msg);
     const resetGame = document.createElement("button");
@@ -172,7 +176,7 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  board.every((val, index) => {
+  board.every(() => {
     if (currPlayer) {
       counter++;
       if (counter === WIDTH * HEIGHT) {
