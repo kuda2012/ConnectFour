@@ -69,6 +69,7 @@ function makeHtmlBoard() {
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
+      cell.addEventListener("click", handleClick);
       row.append(cell);
     }
     htmlBoard.append(row);
@@ -94,6 +95,21 @@ function placeInTable(y, x) {
 
   const divPiece = document.createElement("div");
   const givenCell = document.getElementById(`${y}-${x}`);
+  if (y === 5) {
+    divPiece.classList.add("row6");
+  } else if (y === 4) {
+    divPiece.classList.add("row5");
+  } else if (y === 3) {
+    divPiece.classList.add("row4");
+  } else if (y === 3) {
+    divPiece.classList.add("row3");
+  } else if (y === 2) {
+    divPiece.classList.add("row2");
+  } else if (y === 1) {
+  } else {
+    divPiece.classList.add("row1");
+  }
+
   givenCell.append(divPiece);
   if (currPlayer % 2 != 0) {
     divPiece.classList.toggle("player1Red");
@@ -145,8 +161,6 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
 
-  currPlayer % 2 != 0 ? (currPlayer = 1) : currPlayer;
-
   board[y][x] = currPlayer;
 
   placeInTable(y, x);
@@ -167,7 +181,7 @@ function handleClick(evt) {
     }
   });
 
-  currPlayer = currPlayer + 1;
+  currPlayer = currPlayer === 1 ? 2 : 1;
   // switch players
   // TODO: switch currPlayer 1 <-> 2
 }

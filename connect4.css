@@ -7,7 +7,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: skyblue;
 }
@@ -48,9 +48,63 @@ tr td {
   width: 100%;
   height: 100%;
   border-radius: 100px;
-  animation: slideDown 1s;
 }
-@keyframes slideDown {
+
+.row6 {
+  animation: slideDown6 1s;
+}
+
+.row5 {
+  animation: slideDown5 0.9s;
+}
+
+.row4 {
+  animation: slideDown4 0.87s;
+}
+.row3 {
+  animation: slideDown3 0.8s;
+}
+.row2 {
+  animation: slideDown2 0.75s;
+}
+
+@keyframes slideDown2 {
+  0% {
+    transform: translate(0, -200px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideDown3 {
+  0% {
+    transform: translate(0, -200px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideDown4 {
+  0% {
+    transform: translate(0, -215px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideDown5 {
+  0% {
+    transform: translate(0, -275px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideDown6 {
   0% {
     transform: translate(0, -350px);
   }
