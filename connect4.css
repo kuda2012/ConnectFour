@@ -44,7 +44,7 @@ tr td {
 .piece {
   /* TODO: make into circles */
   position: absolute;
-  width: 13%;
+  width: 13.5%;
   height: 14%;
   border-radius: 100px;
 }

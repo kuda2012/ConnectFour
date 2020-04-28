@@ -117,8 +117,7 @@ function placeInTable(y, x) {
 
 /** endGame: announce game end */
 
-function endGame(msg) {
-  // TODO: pop up alert message
+function removeClickListener() {
   //Remove click listener from top row
   const removeClick = document.getElementById("column-top");
   removeClick.removeEventListener("click", handleClick);
@@ -131,17 +130,26 @@ function endGame(msg) {
       }
     });
   }
+}
+
+function addResetButton() {
+  const resetGame = document.createElement("button");
+  resetGame.innerText = "Reset Game!";
+  const connect4logo = document.getElementById("connect4");
+  connect4logo.parentNode.insertBefore(resetGame, connect4logo.nextSibling);
+  resetGame.addEventListener("click", () => {
+    window.location.reload();
+  });
+}
+
+function endGame(msg) {
+  // TODO: pop up alert message
+  removeClickListener();
   //Alert which player won and provide option to reset the game
   setTimeout(() => {
     alert(msg);
-    const resetGame = document.createElement("button");
-    resetGame.innerText = "Reset Game!";
-    resetGame.addEventListener("click", () => {
-      window.location.reload();
-    });
-    const connect4logo = document.getElementById("connect4");
-    connect4logo.parentNode.insertBefore(resetGame, connect4logo.nextSibling);
-  }, 1100);
+    addResetButton();
+  }, 1000);
 }
 
 /** handleClick: handle click of column top to play piece */
