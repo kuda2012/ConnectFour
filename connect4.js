@@ -7,8 +7,7 @@
 
 let WIDTH = 7;
 let HEIGHT = 6;
-let currPlayer = 1; // active player: 1 or 2
-const board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; // active player: 1 or 2 // array of rows, each row is array of cells  (board[y][x])
 let counter = 0;
 
 /** makeBoard: create in-JS board structure:
@@ -16,6 +15,7 @@ let counter = 0;
  */
 
 function makeBoard() {
+  let board = [];
   for (let y = 0; y < HEIGHT; y++) {
     const newRow = [];
     board[y] = newRow;
@@ -67,6 +67,7 @@ function makeHtmlBoard() {
   // a given row, it appends the row to the board
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
+
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
@@ -96,20 +97,13 @@ function placeInTable(y, x) {
 
   const divPiece = document.createElement("div");
   const givenCell = document.getElementById(`${y}-${x}`);
+
   // a class is added based on the row the piece will be in so that CSS animation slide down animaitions can be applied per distance from the top row
-  if (y === 5) {
-    divPiece.classList.add("row6");
-  } else if (y === 4) {
-    divPiece.classList.add("row5");
-  } else if (y === 3) {
-    divPiece.classList.add("row4");
-  } else if (y === 3) {
-    divPiece.classList.add("row3");
-  } else if (y === 2) {
-    divPiece.classList.add("row2");
-  } else if (y === 1) {
-  } else {
-    divPiece.classList.add("row1");
+  for (let i = 0; i <= y; i++) {
+    if (i === y) {
+      divPiece.classList.add(`row${i + 1}`);
+      divPiece.style.top = `${67 * (y + 1)}px`;
+    }
   }
 
   givenCell.append(divPiece);
@@ -241,7 +235,7 @@ function checkForWin() {
         [y + 3, x - 3],
       ];
 
-      //for each possible spot on the board, pass in this spot, and 3 other spots that are diagonal, horizontal, or vertical to the given spot
+      //for each possible spot on the board, pass a given spot, and 3 other spots that are diagonal, horizontal, or vertical to the given spot
       //and see if there are 4 in a row of the same color in those give directions.
 
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
@@ -251,5 +245,5 @@ function checkForWin() {
   }
 }
 
-makeBoard();
+let board = makeBoard();
 makeHtmlBoard();

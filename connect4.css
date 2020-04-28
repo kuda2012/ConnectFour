@@ -43,34 +43,33 @@ tr td {
 
 .piece {
   /* TODO: make into circles */
-  position: relative;
-  margin: 0 0px 0 0;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  width: 13%;
+  height: 14%;
   border-radius: 100px;
 }
 
 .row6 {
-  animation: slideDown6 1s;
+  animation: slideDown6 0.8s;
 }
 
 .row5 {
-  animation: slideDown5 0.9s;
+  animation: slideDown5 0.7s;
 }
 
 .row4 {
-  animation: slideDown4 0.87s;
+  animation: slideDown4 0.5s;
 }
 .row3 {
-  animation: slideDown3 0.8s;
+  animation: slideDown3 0.4s;
 }
 .row2 {
-  animation: slideDown2 0.75s;
+  animation: slideDown2 0.3s;
 }
 
 @keyframes slideDown2 {
   0% {
-    transform: translate(0, -200px);
+    transform: translate(0, -86px);
   }
   100% {
     transform: translate(0, 0);
@@ -79,7 +78,7 @@ tr td {
 
 @keyframes slideDown3 {
   0% {
-    transform: translate(0, -200px);
+    transform: translate(0, -153px);
   }
   100% {
     transform: translate(0, 0);
@@ -88,7 +87,7 @@ tr td {
 
 @keyframes slideDown4 {
   0% {
-    transform: translate(0, -215px);
+    transform: translate(0, -220px);
   }
   100% {
     transform: translate(0, 0);
@@ -97,7 +96,7 @@ tr td {
 
 @keyframes slideDown5 {
   0% {
-    transform: translate(0, -275px);
+    transform: translate(0, -287px);
   }
   100% {
     transform: translate(0, 0);
